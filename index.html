@@ -21,11 +21,14 @@
   </body>
   <script>
     const root = document.querySelector("#root");
-    const span = React.createElement(
-      "span",
-      { id: "inside", style: { color: "red" } },
-      "TEST"
+    const span = React.createElement("span", { id: "inside" }, "Total clicks");
+    const button = React.createElement(
+      "button",
+      { onClick: () => console.log("clicked") },
+      "Clink me"
     );
-    ReactDOM.render(span, root);
+    const container = React.createElement("div", null, [span, button]);
+
+    ReactDOM.render(container, root);
   </script>
 </html>
