@@ -15,17 +15,19 @@
       crossorigin
       src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
     ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/@babel/standalone/babel.min.js"
+    ></script>
   </head>
   <body>
     <div id="root"></div>
   </body>
-  <script>
+  <script type="text/babel">
     const root = document.querySelector("#root");
-    const span = React.createElement("span", { id: "inside" }, "Total clicks");
-    const button = React.createElement(
-      "button",
-      { onClick: () => console.log("clicked") },
-      "Clink me"
+    const span = <h3>Total clicks:</h3>;
+    const button = (
+      <button onClick={() => console.log("clicked")}>Click me</button>
     );
     const container = React.createElement("div", null, [span, button]);
 
