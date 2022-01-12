@@ -25,12 +25,17 @@
   </body>
   <script type="text/babel">
     const root = document.querySelector("#root");
-    const span = <h3>Total clicks:</h3>;
-    const button = (
+    const Title = () => <h3>Total clicks:</h3>;
+    const Button = () => (
       <button onClick={() => console.log("clicked")}>Click me</button>
     );
-    const container = React.createElement("div", null, [span, button]);
+    const Container = () => (
+      <div>
+        <Title />
+        <Button />
+      </div>
+    );
 
-    ReactDOM.render(container, root);
+    ReactDOM.render(<Container />, root);
   </script>
 </html>
