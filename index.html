@@ -30,21 +30,33 @@
       const onChange = (e) => {
         setMinutes(e.target.value);
       };
+      const reset = () => setMinutes(0);
 
       return (
         <div>
           <h1>Converter</h1>
-          <label htmlFor="minutes">Minutes</label>
-          <input
-            value={minutes}
-            id="minutes"
-            placeholder="Minutes"
-            type="number"
-            onChange={onChange}
-          ></input>
-          <p>{minutes}</p>
-          <label htmlFor="hours">Hours</label>
-          <input id="hours" placeholder="Houre" type="number"></input>
+          <div>
+            <label htmlFor="minutes">Minutes</label>
+            <input
+              value={minutes}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+            ></input>
+          </div>
+
+          <div>
+            <label htmlFor="hours">Hours</label>
+            <input
+              value={minutes / 60}
+              id="hours"
+              placeholder="Houre"
+              type="number"
+              disabled
+            ></input>
+          </div>
+          <button onClick={reset}>Reset</button>
         </div>
       );
     }
