@@ -26,12 +26,25 @@
   <script type="text/babel">
     const root = document.querySelector("#root");
     function App() {
-      const [counter, setCounter] = React.useState(0);
+      const [minutes, setMinutes] = React.useState(0);
+      const onChange = (e) => {
+        setMinutes(e.target.value);
+      };
 
       return (
         <div>
-          <h3>Total clicks: {counter}</h3>
-          <button onClick={() => setCounter(counter + 1)}>Click me</button>
+          <h1>Converter</h1>
+          <label htmlFor="minutes">Minutes</label>
+          <input
+            value={minutes}
+            id="minutes"
+            placeholder="Minutes"
+            type="number"
+            onChange={onChange}
+          ></input>
+          <p>{minutes}</p>
+          <label htmlFor="hours">Hours</label>
+          <input id="hours" placeholder="Houre" type="number"></input>
         </div>
       );
     }
