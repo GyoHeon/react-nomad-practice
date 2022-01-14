@@ -2,26 +2,38 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [coins, setCoins] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const getMovies = async () => {
+    const json = await (
+      await fetch(
+        "https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year"
+      )
+    ).json();
+
+    setMovies(json.data.movies);
+    setLoading(false);
+  };
+
   useEffect(() => {
-    fetch("https://api.coinpaprika.com/v1/tickers")
-      .then((response) => response.json())
-      .then((json) => {
-        setCoins(json);
-        setLoading(false);
-      });
+    getMovies();
   }, []);
 
   return (
     <div>
-      <h1>The Coins! {loading ? null : `(${coins.length})`}</h1>
       {loading ? (
-        "loading..."
+        <h1>Loading...</h1>
       ) : (
         <ul>
-          {coins.map((coin) => (
-            <li key={coin.id}>
-              {coin.name} ({coin.symbol}) : ${coin.quotes.USD.price}
+          {movies.map((item) => (
+            <li key={item.id}>
+              <img src={item.medium_cover_image} />
+              <h2>{item.title}</h2>
+              <p>{item.summary}</p>
+              <ul>
+                {item.genres.map((g) => (
+                  <li key={g}>{g}</li>
+                ))}
+              </ul>
             </li>
           ))}
         </ul>
