@@ -1,37 +1,31 @@
 import { useState, useEffect } from "react";
 
 function App() {
-  const [todo, setTodo] = useState("");
-  const [todoList, setTodoList] = useState([]);
-  const onChange = (e) => setTodo(e.target.value);
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (todo === "") return;
-    else {
-      setTodoList((curr) => [...curr, todo]);
-    }
-    console.log(todoList);
-    setTodo("");
-  };
+  const [loading, setLoading] = useState(true);
+  const [coins, setCoins] = useState([]);
+  useEffect(() => {
+    fetch("https://api.coinpaprika.com/v1/tickers")
+      .then((response) => response.json())
+      .then((json) => {
+        setCoins(json);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div>
-      <h1>My To Dos ({todoList.length})</h1>
-      <form onSubmit={onSubmit}>
-        <input
-          value={todo}
-          onChange={onChange}
-          type="text"
-          placeholder="Write your ToDo"
-        />
-        <button>Add To Do</button>
-      </form>
-      <hr />
-      <ul>
-        {todoList.map((todo, index) => (
-          <li ket={index}>{todo}</li>
-        ))}
-      </ul>
+      <h1>The Coins! {loading ? null : `(${coins.length})`}</h1>
+      {loading ? (
+        "loading..."
+      ) : (
+        <ul>
+          {coins.map((coin) => (
+            <li key={coin.id}>
+              {coin.name} ({coin.symbol}) : ${coin.quotes.USD.price}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
