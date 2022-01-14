@@ -1,25 +1,31 @@
 import { useState, useEffect } from "react";
 
 function App() {
-  const [counter, setCounter] = useState(0);
-  const [keyword, setKeyword] = useState("");
-  const onClick = () => setCounter((counter) => counter + 1);
-  const onChange = (e) => setKeyword(e.target.value);
-
-  useEffect(() => console.log("i run 'counter' changes"), [counter]);
-
-  useEffect(() => console.log("i run 'keyword' changes"), [keyword]);
+  const [todo, setTodo] = useState("");
+  const [todoList, setTodoList] = useState([]);
+  const onChange = (e) => setTodo(e.target.value);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (todo === "") return;
+    else {
+      setTodoList((curr) => [...curr, todo]);
+    }
+    console.log(todoList);
+    setTodo("");
+  };
 
   return (
     <div>
-      <input
-        value={keyword}
-        onChange={onChange}
-        type="text"
-        placeholder="Search here..."
-      />
-      <h1>{counter}</h1>
-      <button onClick={onClick}>Click me</button>
+      <h1>My To Dos ({todoList.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          value={todo}
+          onChange={onChange}
+          type="text"
+          placeholder="Write your ToDo"
+        />
+        <button>Add To Do</button>
+      </form>
     </div>
   );
 }
