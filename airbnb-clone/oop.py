@@ -1,9 +1,20 @@
-class Player:
-    def __init__(self, name, xp):
+class Human:
+    def __init__(self, name):
         self.name = name
-        self.xp = xp
+
     def say_hello(self):
         print(f'Hello my name is {self.name}')
 
-lgh = Player('lgh', 1000)
-lgh.say_hello()
+class Player(Human):
+    def __init__(self, name, xp):
+        self.xp = xp
+
+class Fan(Human):
+    def __init__(self, name, fav_team):
+        self.fav_team = fav_team
+
+lgh_player = Player('lgh', 10)
+lgh_fan = Fan('lgh_fan', 'downtown')
+
+lgh_player.say_hello()
+lgh_fan.say_hello()
