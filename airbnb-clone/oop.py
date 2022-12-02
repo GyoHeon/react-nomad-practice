@@ -7,10 +7,13 @@ class Human:
 
 class Player(Human):
     def __init__(self, name, xp):
+        super().__init__(name)
+        name
         self.xp = xp
 
 class Fan(Human):
     def __init__(self, name, fav_team):
+        super().__init__(name)
         self.fav_team = fav_team
 
 lgh_player = Player('lgh', 10)
