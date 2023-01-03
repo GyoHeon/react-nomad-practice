@@ -10,13 +10,18 @@ export default function useMutation(
   const [data, setData] = useState<null | any>(null);
   const [error, setError] = useState<null | any>(null);
   function mutation(data: any) {
+    setLoading(true);
     fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    });
+    })
+      .then((res) => res.json().catch(() => {}))
+      .then(setData)
+      .catch(setError)
+      .finally(() => setLoading(false));
   }
   return [mutation, { loading, data, error }];
 }
