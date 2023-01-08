@@ -18,23 +18,18 @@ async function handler(
       payload,
       user: {
         connectOrCreate: {
-          where: {
-            ...user,
-          },
-          create: {
-            name: "Anonymous",
-            ...user,
-          },
+          where: { ...user },
+          create: { name: "Anonymous", ...user },
         },
       },
     },
   });
   if (phone) {
-    const message = await twilioClient.messages.create({
-      messagingServiceSid: process.env.MESSAGE_SERVICE_SID,
-      to: process.env.PHONE!,
-      body: `Your verification code is ${payload}`,
-    });
+    // const message = await twilioClient.messages.create({
+    //   messagingServiceSid: process.env.MESSAGE_SERVICE_SID,
+    //   to: process.env.PHONE!,
+    //   body: `Your verification code is ${payload}`,
+    // });
   }
 
   return res.json({ ok: true });
