@@ -1,6 +1,13 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
+import { SWRConfig } from "swr";
+import "../styles/globals.css";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
-}
+const fetcher = (url: string) => fetch(url).then((response) => response.json());
+
+const App = ({ Component, pageProps }: AppProps) => (
+  <SWRConfig value={{ fetcher }}>
+    <Component {...pageProps} />
+  </SWRConfig>
+);
+
+export default App;
